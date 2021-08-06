@@ -15,7 +15,7 @@ app
       server.use(
         "/api",
         createProxyMiddleware({
-          target: "https://lg-be.herokuapp.com/api",
+          target: "http://localhost:8000",
           changeOrigin: true,
         })
       );
@@ -27,7 +27,7 @@ app
 
     server.listen(3000, (err) => {
       if (err) throw err;
-      console.log("> Ready on https://lg-be.herokuapp.com/api");
+      console.log("> Ready on http://localhost:8000");
     });
   })
   .catch((err) => {
