@@ -6,25 +6,25 @@ import UserNav from "../nav/UserNav";
 
 const UserRoute = ({ children }) => {
   // state
-  const [ok, setOk] = useState(false);
-  // router
-  const router = useRouter();
+  const [ok, setOk] = useState(true);
+  // // router
+  // const router = useRouter();
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
 
-  const fetchUser = async () => {
-    try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/current-user`);
-      //   console.log(data);
-      if (data.ok) setOk(true);
-    } catch (err) {
-      console.log(err);
-      setOk(false);
-      router.push("/login");
-    }
-  };
+  // const fetchUser = async () => {
+  //   try {
+  //     const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/current-user`);
+  //     //   console.log(data);
+  //     if (data.ok) setOk(true);
+  //   } catch (err) {
+  //     console.log(err);
+  //     setOk(false);
+  //     router.push("/login");
+  //   }
+  // };
 
   return (
     <>
