@@ -21,7 +21,7 @@ const BecomeInstructor = () => {
     // console.log("become instructor");
     setLoading(true);
     axios
-      .post(`${process.env.NEXT_PUBLIC_API}/api/make-instructor`)
+      .post("/api/make-instructor")
       .then((res) => {
         console.log(res);
         window.location.href = res.data;
@@ -33,6 +33,7 @@ const BecomeInstructor = () => {
       });
   };
 
+  //become instructor page
   return (
     <>
       <h1 className="jumbotron text-center square">Become Instructor</h1>

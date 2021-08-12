@@ -6,6 +6,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+// dev only proxy
 app
   .prepare()
   .then(() => {
@@ -15,11 +16,19 @@ app
       server.use(
         "/api",
         createProxyMiddleware({
-          target: "http://localhost:8000",
+          target: "https://lg-be.herokuapp.com",
           changeOrigin: true,
         })
       );
     }
+
+    server.use(
+      "/api",
+      createProxyMiddleware({
+        target: "https://lg-be.herokuapp.com",
+        changeOrigin: true,
+      })
+    );
 
     server.all("*", (req, res) => {
       return handle(req, res);

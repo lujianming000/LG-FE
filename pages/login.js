@@ -7,8 +7,8 @@ import { Context } from "../context";
 import { useRouter } from "next/router";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("lu19931125@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
   // state
@@ -30,7 +30,7 @@ const Login = () => {
     // console.table({ name, email, password });
     try {
       setLoading(true);
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API}/api/login`, {
+      const { data } = await axios.post(`/api/login`, {
         email,
         password,
       });
@@ -76,17 +76,23 @@ const Login = () => {
 
           <button
             type="submit"
-            className="btn btn-block btn-primary form-control mb-4 p-4"
+            className="btn btn-block btn-primary"
             disabled={!email || !password || loading}
           >
             {loading ? <SyncOutlined spin /> : "Submit"}
           </button>
         </form>
 
-        <p className="text-center p-3">
+        <p className="text-center pt-3">
           Not yet registered?{" "}
           <Link href="/register">
             <a>Register</a>
+          </Link>
+        </p>
+
+        <p className="text-center">
+          <Link href="/forgot-password">
+            <a className="text-danger">Forgot password</a>
           </Link>
         </p>
       </div>

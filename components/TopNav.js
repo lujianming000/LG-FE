@@ -15,7 +15,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const { Item, SubMenu, ItemGroup } = Menu;
+const { Item, SubMenu, ItemGroup, Group} = Menu;
 
 const TopNav = () => {
   const [current, setCurrent] = useState("");
@@ -32,13 +32,13 @@ const TopNav = () => {
   const logout = async () => {
     dispatch({ type: "LOGOUT" });
     window.localStorage.removeItem("user");
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/logout`);
+    const { data } = await axios.get("/api/logout");
     toast(data.message);
     router.push("/login");
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]}>
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
       <Item
         key="/"
         onClick={(e) => setCurrent(e.key)}
@@ -74,22 +74,24 @@ const TopNav = () => {
       {user === null && (
         <>
           <Item
-            key="/login"
-            onClick={(e) => setCurrent(e.key)}
-            icon={<LoginOutlined />}
-          >
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </Item>
-
-          <Item
+            className="float-right"
             key="/register"
             onClick={(e) => setCurrent(e.key)}
             icon={<UserAddOutlined />}
           >
             <Link href="/register">
               <a>Register</a>
+            </Link>
+          </Item>
+
+          <Item
+            className="float-right"
+            key="/login"
+            onClick={(e) => setCurrent(e.key)}
+            icon={<LoginOutlined />}
+          >
+            <Link href="/login">
+              <a>Login</a>
             </Link>
           </Item>
         </>
@@ -99,7 +101,7 @@ const TopNav = () => {
         <SubMenu
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          className="ms-auto"
+          className="float-right"
         >
           <ItemGroup>
             <Item key="/user">
@@ -110,6 +112,19 @@ const TopNav = () => {
             <Item onClick={logout}>Logout</Item>
           </ItemGroup>
         </SubMenu>
+      )}
+
+      {user && user.role && user.role.includes("Instructor") && (
+        <Item
+          key="/instructor"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+          className="float-right"
+        >
+          <Link href="/instructor">
+            <a>Instructor</a>
+          </Link>
+        </Item>
       )}
     </Menu>
   );
